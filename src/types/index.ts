@@ -68,7 +68,7 @@ export interface AlertFormData {
 
 export interface AlertsContextType {
   alerts: Alert[]
-  addAlert: (alert: Omit<Alert, 'id' | 'createdAt' | 'lastTriggeredAt'>) => void
+  addAlert: (alert: Omit<Alert, 'id' | 'createdAt' | 'lastTriggeredAt'>) => Alert
   updateAlert: (id: string, updates: Partial<Omit<Alert, 'id' | 'createdAt'>>) => void
   removeAlert: (id: string) => void
   getAlertsForPair: (assetPair: string) => Alert[]

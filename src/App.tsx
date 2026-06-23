@@ -4,7 +4,7 @@ import { Layout } from './components/Layout'
 import { ErrorBoundary } from './components/ErrorBoundary'
 import { Dashboard } from './pages/Dashboard'
 import { NotFound } from './pages/NotFound'
-import { PriceAlertProvider } from './hooks/usePriceAlerts'
+import { AlertsProvider } from './hooks/useAlerts'
 import { useWebVitals } from './hooks/useWebVitals'
 import { PreferencesProvider } from './preferences/PreferencesContext'
 
@@ -27,7 +27,7 @@ function AppContent() {
   return (
     <ErrorBoundary key={location.key}>
       <PreferencesProvider>
-        <PriceAlertProvider>
+        <AlertsProvider>
           <Layout>
             <Suspense fallback={<PriceDetailLoader />}>
               <Routes>
@@ -37,7 +37,7 @@ function AppContent() {
               </Routes>
             </Suspense>
           </Layout>
-        </PriceAlertProvider>
+        </AlertsProvider>
       </PreferencesProvider>
     </ErrorBoundary>
   )

@@ -123,7 +123,7 @@ export function AlertsProvider({ children }: { children: ReactNode }) {
 
   const togglePanel = useCallback(() => setIsPanelOpen((p) => !p), [])
 
-  const markAsRead = useCallback((id: string) => {
+  const markAsRead = useCallback((_id: string) => {
     // In the new system, lastTriggeredAt marks it. We can just keep it as is,
     // or maybe add an unread state if we wanted. For now, it's just a placeholder to resolve types.
   }, [])
