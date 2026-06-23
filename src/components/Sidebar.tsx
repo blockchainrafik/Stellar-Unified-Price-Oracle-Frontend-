@@ -1,5 +1,29 @@
 import { Link, useLocation } from 'react-router-dom'
-import { usePreferences } from '../preferences/PreferencesContext'
+import { useState, useEffect } from 'react'
+
+const SIDEBAR_STORAGE_KEY = 'stellar-oracle-sidebar-collapsed'
+
+function getSidebarInitialState(): boolean {
+  try {
+    return localStorage.getItem(SIDEBAR_STORAGE_KEY) === 'true'
+  } catch {
+    return false
+  }
+}
+
+function useSidebarCollapsed() {
+  const [collapsed, setCollapsed] = useState(getSidebarInitialState)
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(SIDEBAR_STORAGE_KEY, String(collapsed))
+    } catch {
+      // localStorage unavailable
+    }
+  }, [collapsed])
+
+  return { collapsed, toggle: () => setCollapsed((c) => !c) }
+}
 
 interface NavItem {
   path: string
@@ -92,10 +116,7 @@ interface SidebarProps {
 
 export function Sidebar({ onSettingsOpen }: SidebarProps) {
   const location = useLocation()
-  const { preferences, updatePreference } = usePreferences()
-  const collapsed = preferences.sidebarCollapsed
-
-  const toggle = () => updatePreference('sidebarCollapsed', !collapsed)
+  const { collapsed, toggle } = useSidebarCollapsed()
 
   const isActive = (path: string) => {
     if (path === '/') return location.pathname === '/'

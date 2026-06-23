@@ -5,7 +5,6 @@ export interface Preferences {
   refreshInterval: RefreshInterval
   chartTimeRange: ChartTimeRange
   staleThresholdMinutes: number
-  sidebarCollapsed: boolean
   reducedMotion: boolean
   highContrast: boolean
   largeText: boolean

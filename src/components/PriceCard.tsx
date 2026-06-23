@@ -1,5 +1,5 @@
 import { memo } from 'react'
-import type { PriceData } from '../types'
+import type { PriceData, PriceHistoryEntry } from '../types'
 import { formatPrice, timeAgo } from '../utils/format'
 import { Sparkline } from './Sparkline'
 import { useSparkline } from '../hooks/useSparkline'
@@ -18,11 +18,21 @@ interface PriceCardProps {
   isStale?: boolean
   hasAlert?: boolean
   onAlertClick?: (e: React.MouseEvent) => void
+  /** Optional pre-fetched history for sparkline; if omitted the card fetches it itself */
+  history?: PriceHistoryEntry[]
 }
 
-export const PriceCard = memo(function PriceCard({ price, onClick, isLive, isStale, hasAlert, onAlertClick }: PriceCardProps) {
+/** Inner card that receives history directly (no fetch, safe for tests) */
+const PriceCardInner = memo(function PriceCardInner({
+  price,
+  onClick,
+  isLive,
+  isStale,
+  hasAlert,
+  onAlertClick,
+  history = [],
+}: PriceCardProps & { history: PriceHistoryEntry[] }) {
   const confidencePct = (price.confidence * 100).toFixed(1)
-  const history = useSparkline(price.assetPair, 24)
 
   return (
     <div
@@ -101,4 +111,17 @@ export const PriceCard = memo(function PriceCard({ price, onClick, isLive, isSta
       </div>
     </div>
   )
+})
+
+/**
+ * PriceCard with self-contained sparkline history fetching.
+ * When `history` prop is provided it is used directly (useful in tests/stories).
+ * When omitted the card fetches its own history via useSparkline.
+ */
+export const PriceCard = memo(function PriceCard(props: PriceCardProps) {
+  // Only call useSparkline when no external history is supplied.
+  // This wrapper exists to keep the hook call unconditional (Rules of Hooks).
+  const fetchedHistory = useSparkline(props.price.assetPair, 24)
+  const history = props.history ?? fetchedHistory
+  return <PriceCardInner {...props} history={history} />
 })

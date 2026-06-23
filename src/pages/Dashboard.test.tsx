@@ -198,7 +198,7 @@ describe('Dashboard', () => {
         <Dashboard />
       </MemoryRouter>,
     )
-    expect(screen.getByPlaceholderText('e.g. XLM')).toBeInTheDocument()
+    expect(screen.getByPlaceholderText('Search by asset pair...')).toBeInTheDocument()
   })
 
   it('filters price cards by search query', async () => {
@@ -221,7 +221,7 @@ describe('Dashboard', () => {
       </MemoryRouter>,
     )
 
-    const searchInput = screen.getByPlaceholderText('e.g. XLM')
+    const searchInput = screen.getByPlaceholderText('Search by asset pair...')
     await user.type(searchInput, 'btc')
 
     expect(screen.getByText('BTC/USD')).toBeInTheDocument()
@@ -248,7 +248,7 @@ describe('Dashboard', () => {
       </MemoryRouter>,
     )
 
-    const searchInput = screen.getByPlaceholderText('e.g. XLM')
+    const searchInput = screen.getByPlaceholderText('Search by asset pair...')
     await user.type(searchInput, 'zzz')
 
     expect(screen.queryByText('BTC/USD')).not.toBeInTheDocument()
@@ -274,7 +274,7 @@ describe('Dashboard', () => {
         <Dashboard />
       </MemoryRouter>,
     )
-    expect(screen.queryByPlaceholderText('e.g. XLM')).not.toBeInTheDocument()
+    expect(screen.queryByPlaceholderText('Search by asset pair...')).not.toBeInTheDocument()
   })
 
   it('shows AlertBadge with active count', async () => {
@@ -336,8 +336,8 @@ describe('Dashboard', () => {
   it('filters by confidence from URL params', async () => {
     const { usePriceContext } = await import('../context/PriceContext')
     const pricesWithConfidence = [
-      { assetPair: 'BTC/USD', price: 50000, timestamp: Date.now(), confidence: 90, sources: ['chainlink'] },
-      { assetPair: 'ETH/USD', price: 3000, timestamp: Date.now(), confidence: 45, sources: ['redstone'] },
+      { assetPair: 'BTC/USD', price: 50000, timestamp: Date.now(), confidence: 0.90, sources: ['chainlink'] },
+      { assetPair: 'ETH/USD', price: 3000, timestamp: Date.now(), confidence: 0.45, sources: ['redstone'] },
     ]
     vi.mocked(usePriceContext).mockReturnValue({
       prices: pricesWithConfidence,
@@ -406,9 +406,9 @@ describe('Dashboard', () => {
   it('applies multiple filters and sort from URL params', async () => {
     const { usePriceContext } = await import('../context/PriceContext')
     const manyPrices = [
-      { assetPair: 'BTC/USD', price: 50000, timestamp: Date.now(), confidence: 90, sources: ['chainlink'] },
-      { assetPair: 'ETH/USD', price: 3000, timestamp: Date.now(), confidence: 85, sources: ['chainlink'] },
-      { assetPair: 'XLM/USD', price: 0.1, timestamp: Date.now(), confidence: 70, sources: ['redstone'] },
+      { assetPair: 'BTC/USD', price: 50000, timestamp: Date.now(), confidence: 0.90, sources: ['chainlink'] },
+      { assetPair: 'ETH/USD', price: 3000, timestamp: Date.now(), confidence: 0.85, sources: ['chainlink'] },
+      { assetPair: 'XLM/USD', price: 0.1, timestamp: Date.now(), confidence: 0.70, sources: ['redstone'] },
     ]
     vi.mocked(usePriceContext).mockReturnValue({
       prices: manyPrices,

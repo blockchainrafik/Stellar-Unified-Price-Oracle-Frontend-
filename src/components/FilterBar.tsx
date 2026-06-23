@@ -201,11 +201,11 @@ export function FilterBar() {
         {/* Search input with autocomplete */}
         <div className="flex-1 w-full relative">
           <label htmlFor="search" className="block text-sm font-medium text-gray-400 mb-1.5">
-            Search
-            <span className="ml-1.5 text-xs text-gray-600 font-normal">
-              supports source:chainlink confidence:&gt;95 price:&lt;1000 updated:&lt;5m
-            </span>
+            Search Asset Pair
           </label>
+          <p className="text-xs text-gray-600 mb-1.5 -mt-1">
+            supports source:chainlink confidence:&gt;95 price:&lt;1000 updated:&lt;5m
+          </p>
           <div className="relative">
             <input
               id="search"
@@ -215,7 +215,7 @@ export function FilterBar() {
               onChange={handleInputChange}
               onKeyDown={handleKeyDown}
               onBlur={() => setTimeout(() => setSuggestions([]), 150)}
-              placeholder="e.g. XLM or source:chainlink confidence:>90"
+              placeholder="Search by asset pair..."
               className="w-full bg-gray-800 border border-gray-700 text-white rounded-lg px-4 py-2 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-colors pl-10"
               aria-autocomplete="list"
               aria-controls={suggestions.length > 0 ? listboxId : undefined}

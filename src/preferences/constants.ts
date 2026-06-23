@@ -4,7 +4,6 @@ export const DEFAULT_PREFERENCES: Preferences = {
   refreshInterval: 10000,
   chartTimeRange: '24h',
   staleThresholdMinutes: 5,
-  sidebarCollapsed: false,
   reducedMotion: false,
   highContrast: false,
   largeText: false,
