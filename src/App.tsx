@@ -6,9 +6,16 @@ import { Dashboard } from './pages/Dashboard'
 import { NotFound } from './pages/NotFound'
 import { useWebVitals } from './hooks/useWebVitals'
 import { PreferencesProvider } from './preferences/PreferencesContext'
+import { ToastProvider } from './context/ToastContext'
+import { ToastContainer } from './components/ToastContainer'
+import { OnboardingProvider, OnboardingTourOverlay } from './components/OnboardingTour'
 
 const PriceDetail = lazy(() =>
   import('./pages/PriceDetail').then((m) => ({ default: m.PriceDetail })),
+)
+
+const SourceHealth = lazy(() =>
+  import('./pages/SourceHealth').then((m) => ({ default: m.SourceHealth })),
 )
 
 function PriceDetailLoader() {
@@ -31,6 +38,7 @@ function AppContent() {
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/price/:pair" element={<PriceDetail />} />
+              <Route path="/sources" element={<SourceHealth />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>
@@ -45,7 +53,13 @@ export default function App() {
 
   return (
     <BrowserRouter basename={BASENAME}>
-      <AppContent />
+      <ToastProvider>
+        <OnboardingProvider>
+          <AppContent />
+          <ToastContainer />
+          <OnboardingTourOverlay />
+        </OnboardingProvider>
+      </ToastProvider>
     </BrowserRouter>
   )
 }
