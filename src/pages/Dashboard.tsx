@@ -91,8 +91,8 @@ export function Dashboard() {
   const filtered = useMemo(() => {
     let result = orderedMerged
     if (search) result = result.filter((p) => p.assetPair.toLowerCase().includes(search.toLowerCase()))
-    if (confidence === 'high') result = result.filter((p) => p.confidence > 80)
-    else if (confidence === 'medium') result = result.filter((p) => p.confidence > 50)
+    if (confidence === 'high') result = result.filter((p) => p.confidence > 0.8)
+    else if (confidence === 'medium') result = result.filter((p) => p.confidence > 0.5)
     if (source !== 'all') result = result.filter((p) => p.sources.some((s) => s.toLowerCase() === source.toLowerCase()))
     if (sort === 'price-high') result = [...result].sort((a, b) => b.price - a.price)
     else if (sort === 'price-low') result = [...result].sort((a, b) => a.price - b.price)

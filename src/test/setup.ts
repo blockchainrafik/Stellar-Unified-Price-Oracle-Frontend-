@@ -1,6 +1,8 @@
 import '@testing-library/jest-dom/vitest'
-import 'vitest-axe/extend-expect'
-import { vi } from 'vitest'
+import { toHaveNoViolations } from 'vitest-axe/dist/matchers.js'
+import { expect, vi } from 'vitest'
+
+expect.extend({ toHaveNoViolations })
 
 class ResizeObserverMock {
   observe = () => {}

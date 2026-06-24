@@ -37,7 +37,7 @@ export function Layout({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen flex flex-col bg-white dark:bg-gray-950 transition-colors duration-200">
       {/* Top nav bar */}
-      <nav className="border-b border-gray-200 dark:border-gray-800 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm sticky top-0 z-50 h-16">
+      <nav aria-label="Main navigation" className="border-b border-gray-200 dark:border-gray-800 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm sticky top-0 z-50 h-16">
         <div className="px-4 sm:px-6 h-full flex items-center justify-between">
           <div className="flex items-center gap-3">
             {/* Hamburger – mobile only */}

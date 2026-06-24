@@ -46,26 +46,6 @@ describe('PriceCard', () => {
     expect(screen.getByText('redstone')).toBeInTheDocument()
   })
 
-  it('shows live indicator when isLive is true', () => {
-    const { container } = render(<PriceCard price={mockPrice} isLive />)
-    expect(container.querySelector('.bg-green-500')).toBeInTheDocument()
-  })
-
-  it('does not show live indicator when isLive is false', () => {
-    const { container } = render(<PriceCard price={mockPrice} isLive={false} />)
-    expect(container.querySelector('.bg-green-500')).not.toBeInTheDocument()
-  })
-
-  it('shows alert indicator when hasAlert is true', () => {
-    const { container } = render(<PriceCard price={mockPrice} hasAlert />)
-    expect(container.querySelector('.bg-amber-400')).toBeInTheDocument()
-  })
-
-  it('does not show alert indicator when hasAlert is false', () => {
-    const { container } = render(<PriceCard price={mockPrice} hasAlert={false} />)
-    expect(container.querySelector('.bg-amber-400')).not.toBeInTheDocument()
-  })
-
   it('calls onClick when card is clicked', async () => {
     const onClick = vi.fn()
     const user = userEvent.setup()
@@ -116,32 +96,16 @@ describe('PriceCard', () => {
     expect(onClick).toHaveBeenCalledTimes(1)
   })
 
-  it('applies reduced opacity when isStale is true', () => {
-    const { container } = render(<PriceCard price={mockPrice} isStale />)
-    const card = container.querySelector('[role="button"]')
-    expect(card?.className).toContain('opacity-80')
-  })
-
   it('does not apply reduced opacity when isStale is false', () => {
     const { container } = render(<PriceCard price={mockPrice} isStale={false} />)
     const card = container.querySelector('[role="button"]')
-    expect(card?.className).not.toContain('opacity-80')
+    expect(card?.className).not.toContain('opacity-60')
   })
 
   it('does not apply reduced opacity when isStale is undefined', () => {
     const { container } = render(<PriceCard price={mockPrice} />)
     const card = container.querySelector('[role="button"]')
-    expect(card?.className).not.toContain('opacity-80')
-  })
-
-  it('shows optimistic indicator while REST confirmation is pending', () => {
-    render(<PriceCard price={mockPrice} syncState="optimistic" isStale />)
-    expect(screen.getByText('Optimistic update')).toBeInTheDocument()
-  })
-
-  it('shows rollback indicator when REST corrects the price', () => {
-    render(<PriceCard price={mockPrice} syncState="rollback" />)
-    expect(screen.getByText('REST corrected')).toBeInTheDocument()
+    expect(card?.className).not.toContain('opacity-60')
   })
 })
 

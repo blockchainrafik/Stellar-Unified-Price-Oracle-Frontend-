@@ -143,7 +143,7 @@ export function Sidebar({ onSettingsOpen }: SidebarProps) {
       </div>
 
       {/* Nav sections */}
-      <nav className="flex-1 overflow-y-auto py-4 space-y-6">
+      <nav aria-label="Sidebar" className="flex-1 overflow-y-auto py-4 space-y-6">
         {SECTIONS.map((section) => (
           <div key={section.title}>
             {!collapsed && (
@@ -268,7 +268,7 @@ export function MobileSidebar({
           </button>
         </div>
 
-        <nav className="py-4 space-y-5 overflow-y-auto h-[calc(100vh-65px)]">
+        <nav aria-label="Mobile navigation" className="py-4 space-y-5 overflow-y-auto h-[calc(100vh-65px)]">
           {SECTIONS.map((section) => (
             <div key={section.title}>
               <p className="px-4 mb-1.5 text-xs font-semibold uppercase tracking-wider text-gray-500">

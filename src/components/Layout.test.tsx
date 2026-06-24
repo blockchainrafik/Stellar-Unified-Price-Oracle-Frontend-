@@ -57,7 +57,7 @@ describe('Layout', () => {
         </AlertsProvider>
       </MemoryRouter>,
     )
-    expect(screen.getByText('Stellar Oracle')).toBeInTheDocument()
+    expect(screen.getAllByText('Stellar Oracle').length).toBeGreaterThanOrEqual(1)
   })
 
   it('renders footer', () => {
